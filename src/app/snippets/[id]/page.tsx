@@ -23,9 +23,10 @@ export default async function Page({ params: { id } }: PageProps) {
   const deleteSnippet = actions.deleteSnippet.bind(null, snippet.id);
 
   return (
-    <div>
-      <div className="flex m-4 justify-between items-center">
+    <div className="flex flex-col gap-4">
+      <div className="flex justify-between items-center">
         <h1 className="text-xl font-bold">{snippet.title}</h1>
+
         <div className="flex gap-4">
           <Link
             href={`/snippets/${snippet.id}/edit`}
