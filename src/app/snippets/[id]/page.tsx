@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { db } from "@/db";
 import Link from "next/link";
+import * as actions from "@/actions";
 
 type PageProps = {
   params: {
@@ -19,6 +20,8 @@ export default async function Page({ params: { id } }: PageProps) {
     return notFound();
   }
 
+  const deleteSnippet = actions.deleteSnippet.bind(null, snippet.id);
+
   return (
     <div>
       <div className="flex m-4 justify-between items-center">
@@ -30,7 +33,12 @@ export default async function Page({ params: { id } }: PageProps) {
           >
             Edit
           </Link>
-          <button className="p-2 border rounded">Delete</button>
+
+          <form action={deleteSnippet}>
+            <button type="submit" className="p-2 border rounded">
+              Delete
+            </button>
+          </form>
         </div>
       </div>
 

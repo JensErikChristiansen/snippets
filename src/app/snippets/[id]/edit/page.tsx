@@ -21,23 +21,6 @@ export default async function EditSnippetPage({ params }: PageProps) {
     return notFound();
   }
 
-  async function submit(formData: FormData) {
-    "use server";
-
-    const title = formData.get("title") as string;
-    const code = formData.get("code") as string;
-
-    await db.snippet.update({
-      where: {
-        id,
-      },
-      data: {
-        title,
-        code,
-      },
-    });
-  }
-
   return (
     <div>
       <SnippetEditForm snippet={snippet} />
