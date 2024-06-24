@@ -1,6 +1,7 @@
 "use server";
 import { db } from "@/db";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 export async function editSnippet(id: number, code: string) {
   await db.snippet.update({
@@ -12,6 +13,7 @@ export async function editSnippet(id: number, code: string) {
     },
   });
 
+  revalidatePath(`/snippets/${id}`); // need this because we used generateStaticParams() in /snippets/[id]
   redirect(`/snippets/${id}`);
 }
 
@@ -22,6 +24,7 @@ export async function deleteSnippet(id: number) {
     },
   });
 
+  revalidatePath('/');
   redirect("/");
 }
 
@@ -65,5 +68,6 @@ export async function createSnippet(
     };
   }
 
+  revalidatePath('/');
   redirect("/");
 }
